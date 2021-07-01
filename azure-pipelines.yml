@@ -14,6 +14,7 @@ variables:
   imageRepository: 'pipelinesjavascriptdocker'
   containerRegistry: 'devddacr.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/app/Dockerfile'
+  dockerfilePath2: '$(Build.SourcesDirectory)/app2/Dockerfile'
   tag: '$(Build.BuildId)'
 
   # Agent VM image name
@@ -43,7 +44,7 @@ stages:
       inputs:
         command: buildAndPush
         repository: $(imageRepository)
-        dockerfile: $(dockerfilePath)
+        dockerfile: $(dockerfilePath2)
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
