@@ -20,7 +20,10 @@ jobs:
         displayName: Login to ACR
         inputs:
           targetType: 'inline'
-          script: docker login `${{ parameters.containerRegistry }}.azurecr.io` -u ${{ parameters.servicePrincipalId }} -p=$SP_SECRET
+          script: 
+            echo "Login using service principal ${{ parameters.servicePrincipalId }}"
+            docker version
+            docker login `${{ parameters.containerRegistry }}.azurecr.io` -u ${{ parameters.servicePrincipalId }} -p=$SP_SECRET
         env:
           SP_SECRET: ${{ parameters.servicePrincipalSecret }}
       - task: Bash@3
