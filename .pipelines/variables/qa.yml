@@ -1,0 +1,5 @@
+variables:
+
+environment: 'qa'
+servicePrincipalId: 'd1c91a8d-e8c9-46bb-9f5a-bbd1ab9709c2'
+containerRegistry: '$(environment)ddacr'
