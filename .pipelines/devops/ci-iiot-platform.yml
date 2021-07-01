@@ -1,0 +1,46 @@
+trigger:
+  branches:
+    include:
+      - refs/heads/master
+      - refs/tags/release-*
+  paths:
+    include:
+      - iiot-platform
+      - .pipelines/devops/ci-iiot-platform.yml 
+
+pr: none
+
+variables:
+  vmImageName: 'ubuntu-latest'
+
+stages:
+  - stage: dev
+    displayName: 'DEV - Build and Push docker image'
+    condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
+    variables:
+        - template: ../variables/dev.yml
+        - group: dev_env_secrets
+    jobs:
+    - template: ../templates/template-ci-iiot-platform.yml
+      parameters:
+        containerRegistry: $(containerRegistry)
+        servicePrincipalId: $(servicePrincipalId)
+        servicePrincipalSecret: $(servicePrincipalSecret)
+        zmqImageRepository: 'iiotfactoryconnectivity050zmq'
+        zmqDockerfilePath: 'iiot-platform/iiot.factory.connectivity050.zmq/Dockerfile'
+
+  - stage: qa
+    displayName: 'QA - Build and Push docker image'
+    condition: startsWith(variables['Build.SourceBranch'], 'refs/tags/release-')
+    variables:
+        - template: ../variables/qa.yml
+        - group: qa_env_secrets
+    jobs:
+    - template: ../templates/template-ci-iiot-platform.yml
+      parameters:
+        containerRegistry: $(containerRegistry)
+        servicePrincipalId: $(servicePrincipalId)
+        servicePrincipalSecret: $(servicePrincipalSecret)
+        zmqImageRepository: 'iiotfactoryconnectivity050zmq'
+        zmqDockerfilePath: 'iiot-platform/iiot.factory.connectivity050.zmq/Dockerfile'
+  
