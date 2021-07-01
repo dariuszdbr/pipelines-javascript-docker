@@ -12,26 +12,27 @@ pr: none
 
 variables:
   vmImageName: 'ubuntu-latest'
+  zmqImageRepository: 'iiotfactoryconnectivity050zmq'
+  zmqWorkingDirectory: 'iiot-platform/iiot.factory.connectivity050.zmq'
 
 stages:
   - stage: dev
-    displayName: 'DEV - Build and Push docker image'
-    #condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
+    displayName: 'DEV - Build and Push docker images'
+    condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
     variables:
         - template: ../variables/dev.yml
         - group: dev_env_secrets
     jobs:
     - template: ../templates/template-ci-iiot-platform.yml
       parameters:
-        tenantId: $(tenantId)
         containerRegistry: $(containerRegistry)
         servicePrincipalId: $(servicePrincipalId)
         servicePrincipalSecret: $(servicePrincipalSecret)
-        zmqImageRepository: 'iiotfactoryconnectivity050zmq'
-        zmqWorkingDirectory: 'iiot-platform/iiot.factory.connectivity050.zmq'
+        zmqImageRepository: $(zmqImageRepository)
+        zmqWorkingDirectory: $(zmqWorkingDirectory)
 
   - stage: qa
-    displayName: 'QA - Build and Push docker image'
+    displayName: 'QA - Build and Push docker images'
     condition: startsWith(variables['Build.SourceBranch'], 'refs/tags/release-')
     variables:
         - template: ../variables/qa.yml
@@ -39,10 +40,9 @@ stages:
     jobs:
     - template: ../templates/template-ci-iiot-platform.yml
       parameters:
-        tenantId: $(tenantId)
         containerRegistry: $(containerRegistry)
         servicePrincipalId: $(servicePrincipalId)
         servicePrincipalSecret: $(servicePrincipalSecret)
-        zmqImageRepository: 'iiotfactoryconnectivity050zmq'
-        zmqWorkingDirectory: 'iiot-platform/iiot.factory.connectivity050.zmq'
+        zmqImageRepository: $(zmqImageRepository)
+        zmqWorkingDirectory: $(zmqWorkingDirectory)
   
