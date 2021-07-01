@@ -19,6 +19,8 @@ jobs:
         vmImage: $(vmImageName)
       steps:
       - bash: |
+          echo "Login using service principal ${{ parameters.servicePrincipalId }}"
+          echo "Secret value - $SP_SECRET"
           az login --service-principal -u ${{ parameters.servicePrincipalId }} -p=$SP_SECRET --tenant ${{ parameters.tenantId }}
           az acr login --name ${{ parameters.containerRegistry }}
          
