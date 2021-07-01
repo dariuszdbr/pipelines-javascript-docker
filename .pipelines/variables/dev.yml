@@ -1,5 +1,5 @@
 variables:
   tenantId: '518b8630-c9cd-4dcb-afd7-02c40cb75885'
   environment: 'dev'
-  servicePrincipalId: '4f1aa320-b63b-41ba-a1a1-2835e8537740a'
+  servicePrincipalId: '4f1aa320-b63b-41ba-a1a1-2835e8537740'
   containerRegistry: '$(environment)ddacr'

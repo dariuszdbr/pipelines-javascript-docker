@@ -16,7 +16,7 @@ jobs:
     - job: build_and_push_zmq_docker_image
       displayName: Build and Push Zmq Docker image
       pool:
-        vmImage: $(vmImageName) # Sprawdzimy czy działa
+        vmImage: $(vmImageName)
       steps:
       - bash: |
           az login --service-principal -u ${{ parameters.servicePrincipalId }} -p=$SP_SECRET --tenant ${{ parameters.tenantId }}
