@@ -42,5 +42,5 @@ stages:
         servicePrincipalId: $(servicePrincipalId)
         servicePrincipalSecret: $(servicePrincipalSecret)
         zmqImageRepository: 'iiotfactoryconnectivity050zmq'
-        zmqDockerfilePath: 'iiot-platform/iiot.factory.connectivity050.zmq/Dockerfile'
+        zmqWorkingDirectory: 'iiot-platform/iiot.factory.connectivity050.zmq'
   
