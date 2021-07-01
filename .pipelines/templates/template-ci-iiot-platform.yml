@@ -18,8 +18,8 @@ jobs:
       steps:
       - template: ../templates/template-build-and-push-docker-image.yml
         parameters:
-          containerRegistry: ${{ containerRegistry }}
-          servicePrincipalId: ${{ servicePrincipalId }}
-          servicePrincipalSecret: ${{ servicePrincipalSecret }}
-          imageRepository: ${{ zmqImageRepository }}
-          workingDirectory: ${{ zmqWorkingDirectory }}
+          containerRegistry: ${{ parameters.containerRegistry }}
+          servicePrincipalId: ${{ parameters.servicePrincipalId }}
+          servicePrincipalSecret: ${{ parameters.servicePrincipalSecret }}
+          imageRepository: ${{ parameters.zmqImageRepository }}
+          workingDirectory: ${{ parameters.zmqWorkingDirectory }}
