@@ -23,6 +23,7 @@ stages:
     jobs:
     - template: ../templates/template-ci-iiot-platform.yml
       parameters:
+        tenantId: ${{ parameters.tenantId }}
         containerRegistry: $(containerRegistry)
         servicePrincipalId: $(servicePrincipalId)
         servicePrincipalSecret: $(servicePrincipalSecret)
@@ -38,6 +39,7 @@ stages:
     jobs:
     - template: ../templates/template-ci-iiot-platform.yml
       parameters:
+        tenantId: ${{ parameters.tenantId }}
         containerRegistry: $(containerRegistry)
         servicePrincipalId: $(servicePrincipalId)
         servicePrincipalSecret: $(servicePrincipalSecret)
