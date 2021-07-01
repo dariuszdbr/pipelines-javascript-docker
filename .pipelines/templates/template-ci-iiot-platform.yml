@@ -20,9 +20,9 @@ jobs:
       steps:
       - bash: |
           echo "Login using service principal ${{ parameters.servicePrincipalId }}"
-          echo "Secret value - $SP_SECRET"
-          az login --service-principal -u ${{ parameters.servicePrincipalId }} -p=$SP_SECRET --tenant ${{ parameters.tenantId }}
-          az acr login --name ${{ parameters.containerRegistry }}
+          docker login ${{ parameters.containerRegistry }}.azurecr.io -u ${{ parameters.servicePrincipalId }} -p=$SP_SECRET
+          #az login --service-principal -u ${{ parameters.servicePrincipalId }} -p=$SP_SECRET --tenant ${{ parameters.tenantId }}
+          #az acr login --name ${{ parameters.containerRegistry }}
          
           imageName=${{ parameters.containerRegistry }}.azurecr.io/${{ parameters.zmqImageRepository }}:$(Build.BuildId)
           echo "Build and push $imageName"
