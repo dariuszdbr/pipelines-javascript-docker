@@ -7,7 +7,7 @@ parameters:
     type: string
   - name: zmqImageRepository
     type: string
-  - name: zmqDockerfilePath
+  - name: zmqWorkingDirectory
     type: string
 
 jobs:
@@ -16,20 +16,20 @@ jobs:
       pool:
         vmImage: $(vmImageName) # Sprawdzimy czy działa
       steps:
-      - task: Bash@3
-        displayName: Login to ACR
-        inputs:
-          script: 
-            docker login `${{ parameters.containerRegistry }}.azurecr.io` -u ${{ parameters.servicePrincipalId }} -p=$SP_SECRET
+      - bash: |
+         echo "Login using service principal ${{ parameters.servicePrincipalId }}"
+         docker login `${{ parameters.containerRegistry }}.azurecr.io` -u ${{ parameters.servicePrincipalId }} -p=$SP_SECRET
+
+         imageName=${{ parameters.containerRegistry }}.azurecr.io/${{ parameters.zmqImageRepository }}:$(Build.BuildId)
+         echo "Build and push $imageName"
+         docker build -f `${{parameters.zmqWorkingDirectory}}/Dockerfile' -t $(Build.BuildId) .
+         docker push $imageName
+         
+        displayName: Build and publish docker image
+        workingDirectory: ${{ parameters.zmqWorkingDirectory }}
         env:
           SP_SECRET: ${{ parameters.servicePrincipalSecret }}
-      - task: Bash@3
-        displayName: Build and push zmq image
-        inputs:
-          script: 
-            imageName=${{ parameters.containerRegistry }}.azurecr.io/${{ parameters.zmqImageRepository }}:$(Build.BuildId)
-            docker build -f ${{parameters.zmqDockerfilePath}} -t $(Build.BuildId) .
-            docker push $imageName
+          
       # - task: Docker@2
       #   displayName: Build and push app image to container registry
       #   inputs:
