@@ -26,7 +26,7 @@ jobs:
          
           imageName=${{ parameters.containerRegistry }}.azurecr.io/${{ parameters.zmqImageRepository }}:$(Build.BuildId)
           echo "Build and push $imageName"
-          docker build -f Dockerfile -t $(Build.BuildId) .
+          docker build -f Dockerfile -t $imageName .
           docker push $imageName
         displayName: Build and publish docker image
         workingDirectory: ${{ parameters.zmqWorkingDirectory }}
