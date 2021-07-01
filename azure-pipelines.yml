@@ -3,8 +3,10 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/docker
 
 trigger:
-- master
-- release-*
+  branches:
+    include:
+      - refs/heads/master
+      - refs/tags/release-*
 
 pr: none
 
@@ -26,7 +28,7 @@ variables:
 stages:
   - stage: dev
     displayName: 'Build and Push docker image on Dev env'
-    condition: eq(variables['Build.SourceBranch'], 'master')
+    condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
     # variables:
     #   - template: ../variables/dev.yml
     #   - group: dev_env_secrets
@@ -48,7 +50,7 @@ stages:
 
   - stage: qa
     displayName: 'QA Environment CI'
-    condition: startsWith(variables['Build.SourceBranch'], 'release-')
+    condition: startsWith(variables['Build.SourceBranch'], 'refs/tags/release-')
     # variables:
     #   - template: ../variables/qa.yml
     #   - group: qa_env_secrets
