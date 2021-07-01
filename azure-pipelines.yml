@@ -27,9 +27,9 @@ stages:
   - stage: dev
     displayName: 'Build and Push docker image on Dev env'
     condition: eq(variables['Build.SourceBranch'], 'master')
-    variables:
-      - template: ../variables/dev.yml
-      - group: dev_env_secrets
+    # variables:
+    #   - template: ../variables/dev.yml
+    #   - group: dev_env_secrets
     jobs:
     - job: build_and_push_docker_image
       displayName: Build
@@ -49,9 +49,9 @@ stages:
   - stage: qa
     displayName: 'QA Environment CI'
     condition: startsWith(variables['Build.SourceBranch'], 'release-')
-    variables:
-      - template: ../variables/qa.yml
-      - group: qa_env_secrets
+    # variables:
+    #   - template: ../variables/qa.yml
+    #   - group: qa_env_secrets
     jobs:
     - job: build_and_push_docker_image
       displayName: Build
