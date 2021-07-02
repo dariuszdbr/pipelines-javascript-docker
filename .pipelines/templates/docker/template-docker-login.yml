@@ -11,7 +11,7 @@ parameters:
 steps:
   - bash: |
       echo "Login using service principal ${{ parameters.servicePrincipalId }}"
-      docker login ${{ parameters.containerRegistry }}.azurecr.io -u ${{ parameters.servicePrincipalId }} -p=$SP_SECRET
+      echo "$SP_SECRET" | docker login ${{ parameters.containerRegistry }}.azurecr.io -u ${{ parameters.servicePrincipalId }} --password-stdin
     displayName: Login to docker
     workingDirectory: ${{ parameters.workingDirectory }}
     env:
