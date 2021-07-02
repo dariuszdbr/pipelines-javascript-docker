@@ -28,6 +28,8 @@ steps:
     workingDirectory: ${{ parameters.workingDirectory }}
 
   - bash: |
+           echo "Build image: $imageName"
+           echo "Build image: $(imageName)"
            docker push $(imageName)
     displayName: Publishing docker image
     workingDirectory: ${{ parameters.workingDirectory }}
