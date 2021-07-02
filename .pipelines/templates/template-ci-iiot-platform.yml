@@ -16,10 +16,11 @@ jobs:
       pool:
         vmImage: $(vmImageName)
       steps:
-      - template: ../templates/template-build-and-push-docker-image.yml
+      - template: ../templates/template-zmq-adapter.yml
         parameters:
           containerRegistry: ${{ parameters.containerRegistry }}
           servicePrincipalId: ${{ parameters.servicePrincipalId }}
           servicePrincipalSecret: ${{ parameters.servicePrincipalSecret }}
           imageRepository: ${{ parameters.zmqImageRepository }}
           workingDirectory: ${{ parameters.zmqWorkingDirectory }}
+          dockerFileName: 'Dockerfile'

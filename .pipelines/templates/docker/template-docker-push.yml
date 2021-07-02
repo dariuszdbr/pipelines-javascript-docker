@@ -1,0 +1,12 @@
+parameters:
+  - name: imageName
+    type: string
+  - name: workingDirectory
+    type: string
+
+steps:
+  - bash: |
+           echo "Push image: ${{parameters.imageName}}"
+           docker push ${{parameters.imageName}}
+    displayName: Publishing docker image
+    workingDirectory: ${{ parameters.workingDirectory }}
