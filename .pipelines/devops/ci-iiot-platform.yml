@@ -23,7 +23,7 @@ stages:
         - template: ../variables/dev.yml
         - group: dev_env_secrets
     jobs:
-    - template: ../templates/template-ci-iiot-platform.yml
+    - template: ../templates/iiot-platform/template-ci-iiot-platform.yml
       parameters:
         containerRegistry: $(containerRegistry)
         servicePrincipalId: $(servicePrincipalId)
@@ -38,7 +38,7 @@ stages:
         - template: ../variables/qa.yml
         - group: qa_env_secrets
     jobs:
-    - template: ../templates/template-ci-iiot-platform.yml
+    - template: ../templates/iiot-platform/template-ci-iiot-platform.yml
       parameters:
         containerRegistry: $(containerRegistry)
         servicePrincipalId: $(servicePrincipalId)
