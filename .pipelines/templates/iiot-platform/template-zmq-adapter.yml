@@ -32,7 +32,7 @@ jobs:
           imageRepository: ${{ parameters.imageRepository }}
           dockerFileName: 'Dockerfile' 
       
-      - template: ../../templates/template-docker-push.yml
+      - template: ../../templates/docker/template-docker-push.yml
         parameters: 
           imageName: $(dockerImageName)
           workingDirectory: ${{ parameters.workingDirectory }}
