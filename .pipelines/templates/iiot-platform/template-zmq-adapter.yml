@@ -18,21 +18,21 @@ jobs:
     pool:
       vmImage: $(vmImageName)
     steps:     
-      - template: ../templates/docker/template-docker-login.yml
+      - template: ../../templates/docker/template-docker-login.yml
         parameters: 
           containerRegistry: ${{ parameters.containerRegistry }}
           servicePrincipalId: ${{ parameters.servicePrincipalId }}
           servicePrincipalSecret: ${{ parameters.servicePrincipalSecret }}
           workingDirectory: ${{ parameters.workingDirectory }} 
       
-      - template: ../templates/docker/template-docker-build.yml
+      - template: ../../templates/docker/template-docker-build.yml
         parameters: 
           containerRegistry: ${{ parameters.containerRegistry }}
           workingDirectory: ${{ parameters.workingDirectory }}
           imageRepository: ${{ parameters.imageRepository }}
           dockerFileName: 'Dockerfile' 
       
-      - template: ../templates/docker/template-docker-push.yml
+      - template: ../../templates/template-docker-push.yml
         parameters: 
           imageName: $(dockerImageName)
           workingDirectory: ${{ parameters.workingDirectory }}
