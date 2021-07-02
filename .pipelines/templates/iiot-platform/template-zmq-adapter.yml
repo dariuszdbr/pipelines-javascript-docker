@@ -23,7 +23,7 @@ jobs:
           containerRegistry: ${{ parameters.containerRegistry }}
           servicePrincipalId: ${{ parameters.servicePrincipalId }}
           servicePrincipalSecret: ${{ parameters.servicePrincipalSecret }}
-          workingDirectory: ${{ parameters.workingDirectory } 
+          workingDirectory: ${{ parameters.workingDirectory }} 
       
       - template: ../templates/docker/template-docker-build.yml
         parameters: 
