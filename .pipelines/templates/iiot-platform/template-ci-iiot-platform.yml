@@ -11,7 +11,7 @@ parameters:
     type: string
 
 jobs:
-- template: ../templates/iiot-platform/template-zmq-adapter.yml
+- template: ../../templates/iiot-platform/template-zmq-adapter.yml
   parameters:
     containerRegistry: ${{ parameters.containerRegistry }}
     servicePrincipalId: ${{ parameters.servicePrincipalId }}
