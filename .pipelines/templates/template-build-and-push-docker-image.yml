@@ -18,7 +18,7 @@ steps:
     workingDirectory: ${{ parameters.workingDirectory }}
     env:
       SP_SECRET: ${{ parameters.servicePrincipalSecret }}
-      
+
   - bash: |
       imageName=${{ parameters.containerRegistry }}.azurecr.io/${{ parameters.imageRepository }}:$(Build.BuildId)
       echo "##vso[task.setvariable variable=imageName]$imageName"     
@@ -28,7 +28,7 @@ steps:
     workingDirectory: ${{ parameters.workingDirectory }}
 
   - bash: |
-           docker push $imageName
+           docker push $(imageName)
     displayName: Publishing docker image
     workingDirectory: ${{ parameters.workingDirectory }}
     
