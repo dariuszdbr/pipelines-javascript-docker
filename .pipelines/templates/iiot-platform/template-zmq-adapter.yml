@@ -1,0 +1,39 @@
+parameters:
+  - name: containerRegistry
+    type: string
+  - name: servicePrincipalId
+    type: string
+  - name: servicePrincipalSecret
+    type: string
+  - name: imageRepository
+    type: string
+  - name: workingDirectory
+    type: string
+  - name: dockerFileName
+    type: string
+
+jobs:
+  - job: build_and_push_zmq_docker_image
+    displayName: Zmq Adapter
+    pool:
+      vmImage: $(vmImageName)
+    steps:     
+      - template: ../templates/docker/template-docker-login.yml
+        parameters: 
+          containerRegistry: ${{ parameters.containerRegistry }}
+          servicePrincipalId: ${{ parameters.servicePrincipalId }}
+          servicePrincipalSecret: ${{ parameters.servicePrincipalSecret }}
+          workingDirectory: ${{ parameters.workingDirectory } 
+      
+      - template: ../templates/docker/template-docker-build.yml
+        parameters: 
+          containerRegistry: ${{ parameters.containerRegistry }}
+          workingDirectory: ${{ parameters.workingDirectory }}
+          imageRepository: ${{ parameters.imageRepository }}
+          dockerFileName: 'Dockerfile' 
+      
+      - template: ../templates/docker/template-docker-push.yml
+        parameters: 
+          imageName: $(dockerImageName)
+          workingDirectory: ${{ parameters.workingDirectory }}
+    
