@@ -1,0 +1,18 @@
+parameters:
+  - name: containerRegistry
+    type: string
+  - name: imageRepository
+    type: string
+  - name: workingDirectory
+    type: string
+  - name: dockerFileName
+    type: string
+
+steps:
+  - bash: |
+      dockerImageName=${{ parameters.containerRegistry }}.azurecr.io/${{ parameters.imageRepository }}:$(Build.BuildId)
+      echo "##vso[task.setvariable variable=dockerImageName]$dockerImageName"     
+      echo "Build $dockerImageName"
+      docker build -f ${{parameters.dockerFileName}} -t $dockerImageName .
+    displayName: Build docker image
+    workingDirectory: ${{ parameters.workingDirectory }}
