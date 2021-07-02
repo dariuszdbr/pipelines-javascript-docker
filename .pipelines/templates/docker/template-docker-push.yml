@@ -6,7 +6,7 @@ parameters:
 
 steps:
   - bash: |
-           echo "Build image: ${{parameters.imageName}}"
+           echo "Push image: ${{parameters.imageName}}"
            docker push ${{parameters.imageName}}
     displayName: Publishing docker image
     workingDirectory: ${{ parameters.workingDirectory }}
